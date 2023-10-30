@@ -13,11 +13,11 @@ int check_cycle(listint_t *list)
 	else if (list->next == NULL)
 		return (0);
 	node = list;
-	while (node->next != list)
+	while (node != NULL)
 	{
 		node = node->next;
-		if (node == NULL)
-			return (0);
+		if (node == list)
+			return (1);
 	}
-	return (1);
+	return (0);
 }
