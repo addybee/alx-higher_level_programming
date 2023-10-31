@@ -6,18 +6,20 @@
  */
 int check_cycle(listint_t *list)
 {
-	listint_t *node;
+	listint_t *node, *n_node;
 
 	if (list == NULL)
 		return (0);
 	else if (list->next == NULL)
 		return (0);
 	node = list->next;
-	while (node && node->next)
+	n_node = list->next->next;
+	while (node && n_node && n_node->next)
 	{
-		if (node == list || node->next == node)
+		if (node == n_node)
 			return (1);
 		node = node->next;
+		n_node = n_node->next->next;
 	}
 	return (0);
 }
