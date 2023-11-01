@@ -36,15 +36,19 @@ listint_t *insert_node(listint_t **head, int number)
 		}
 		break;
 	}
-	if (prev != *head)
+	if (prev == *head)
+	{
+		*head = new;
+		new->next = prev;
+	}
+	else if (node->n > number)
 	{
 		prev->next = new;
 		new->next = node;
 	}
 	else
 	{
-		*head = new;
-		new->next = prev;
+		node->next = new;
 	}
 	return (new);
 }
