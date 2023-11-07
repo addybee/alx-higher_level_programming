@@ -1,5 +1,4 @@
 #include "lists.h"
-#define B_SIZE 1023
 /**
  * is_palindrome - checks if a singly linked list is a palindrome.
  * @head: pointer to pointer to head of the list
@@ -7,56 +6,57 @@
  */
 int is_palindrome(listint_t **head)
 {
+	unsigned int i, n = 0;
+	int *item;
 
 	if (!head)
 		return (0);
 	if (*head == NULL || (*head)->next == NULL)
 		return (1);
-	if (pal_listint(*head))
-		return (1);
-	return (0);
+	item = arr_listint(*head, &n);
+	if (!item)
+		return (0);
+	for (i = 0; i < (n / 2); i++)
+	{
+		if (item[i] != item[n - 1 - i])
+		{
+			free(item);
+			return (0);
+		}
+	}
+	free(item);
+	return (1);
 }
-
 /**
- * pal_listint - check if listint_t list with at least 2 node is a palindrone
- * @h: pointer to head of the list
+ * arr_listint - add the element of nodes of a listint_t list to an array
+ * @h: pointer to head of list
+ * @len: length of the array
  * Return: return the array
  */
-int pal_listint(const listint_t *h)
+int *arr_listint(const listint_t *h, unsigned int *len)
 {
 	const listint_t *current;
-	unsigned int n, siz, i;
-	int item[B_SIZE];
-	int *ptr = item;
+	unsigned int n; /* number of nodes */
+	int *item;
 
-	siz = B_SIZE;
 	current = h;
 	n = 0;
 	while (current != NULL)
 	{
-		ptr[n] = current->n;
-		n++;
-		if (n > siz)
-		{
-			siz *= 2;
-			int *new = (int *)realloc(ptr, siz);
-
-			if (!new)
-				return (0);
-			ptr = new;
-		}
 		current = current->next;
+		n++;
 	}
-	for (i = 0; i < (n / 2); i++)
+	item = (int *)malloc(n * sizeof(int));
+	if (!item)
+		return (NULL);
+	current = h;
+	*len = n;
+	n = 0;
+	while (current != NULL)
 	{
-		if (ptr[i] != ptr[n - 1 - i])
-		{
-			if (n > B_SIZE)
-				free(ptr);
-			return (0);
-		}
+		item[n] = current->n;
+		current = current->next;
+		n++;
 	}
-	if (n > B_SIZE)
-		free(ptr);
-	return (1);
+	return (item);
 }
