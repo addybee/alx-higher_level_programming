@@ -25,38 +25,24 @@ int is_palindrome(listint_t **head)
 int pal_listint(const listint_t *h)
 {
 	const listint_t *current;
-	unsigned int n, siz, i;
+	unsigned int n, i;
 	int item[B_SIZE];
 	int *ptr = item;
 
-	siz = B_SIZE;
 	current = h;
 	n = 0;
 	while (current != NULL)
 	{
 		ptr[n] = current->n;
 		n++;
-		if (n > siz)
-		{
-			siz *= 2;
-			int *new = (int *)realloc(ptr, siz);
-
-			if (!new)
-				return (0);
-			ptr = new;
-		}
 		current = current->next;
 	}
 	for (i = 0; i < (n / 2); i++)
 	{
 		if (ptr[i] != ptr[n - 1 - i])
 		{
-			if (n > B_SIZE)
-				free(ptr);
 			return (0);
 		}
 	}
-	if (n > B_SIZE)
-		free(ptr);
 	return (1);
 }
