@@ -20,5 +20,4 @@ listint_t *add_nodeint_end(listint_t **head, const int in);
 void free_listint(listint_t *head);
 int is_palindrome(listint_t **head);
 int *arr_listint(const listint_t *h, unsigned int *len);
-void print_python_list_info(PyObject *p);
 #endif /* LISTS_H */
