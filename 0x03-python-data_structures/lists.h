@@ -19,5 +19,5 @@ size_t print_listint(const listint_t *h);
 listint_t *add_nodeint_end(listint_t **head, const int in);
 void free_listint(listint_t *head);
 int is_palindrome(listint_t **head);
-int *arr_listint(const listint_t *h, unsigned int *len);
+int pal_listint(const listint_t *h);
 #endif /* LISTS_H */
