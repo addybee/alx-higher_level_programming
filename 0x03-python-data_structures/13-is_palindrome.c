@@ -19,6 +19,7 @@ int is_palindrome(listint_t **head)
 
 /**
  * pal_listint - check if listint_t list with at least 2 node is a palindrone
+ * @h: pointer to head of the list
  * Return: return the array
  */
 int pal_listint(const listint_t *h)
@@ -38,7 +39,8 @@ int pal_listint(const listint_t *h)
 		if (n > siz)
 		{
 			siz *= 2;
-			int *new = (int*)realloc(ptr, siz);
+			int *new = (int *)realloc(ptr, siz);
+
 			if (!new)
 				return (0);
 			ptr = new;
