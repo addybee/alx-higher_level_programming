@@ -2,7 +2,7 @@
 def complex_delete(a_dictionary, value):
     if a_dictionary is None:
         return
-    for k, v in a_dictionary.items():
-        if v == value:
-            del a_dictionary[k]
+    for item in a_dictionary:
+        if a_dictionary[item] == value:
+            del a_dictionary[item]
     return a_dictionary
