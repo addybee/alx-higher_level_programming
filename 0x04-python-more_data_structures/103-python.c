@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "lists.h"
-void print_python_bytes(PyObject *p);
-void print_python_list(PyObject *p)
 /**
  * print_python_list - print some basic info about Python lists
  * @p: pointer to pyobject
