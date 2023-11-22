@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 """define a class Square"""
 
@@ -39,6 +38,7 @@ class Square:
         if value < 0:
             raise ValueError("size must be >= 0")
         self.__size = value
+
     @property
     def position(self):
         """retrieve the size of the square"""
@@ -46,21 +46,21 @@ class Square:
 
     @position.setter
     def position(self, value):
-     """set the size of the square
+        """set the size of the square
         Args:
             value (tuple): coordinate
-    """
-    if not isinstance(value, tuple) or len(value) != 2) or
-            not all(isinstance(i, int) for i in value) or
-            not all(n >= 0 for n in value)):
-                raise TypeError("position must be a tuple of 2 positive \
-                        integers")
-                self.__position = value
+        """
+        if (not isinstance(value, tuple) or len(value) != 2 or
+                not all(isinstance(i, int) for i in value) or
+                not all(n >= 0 for n in value)):
+            raise TypeError("position must be a tuple of 2 positive integers")
+        self.__position = value
 
     def my_print(self):
         """prints in stdout the square with the character #"""
         if self.__size == 0:
             print()
+            return
         [print("") for idx in range(0, self.__position[1])]
         for i in range(0, self.__size):
             [print(" ", end="") for x in range(0, self.__position[0])]
