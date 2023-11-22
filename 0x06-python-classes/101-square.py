@@ -60,20 +60,24 @@ class Square:
         """prints in stdout the square with the character #"""
         if self.__size == 0:
             print()
-            return
-        [print("") for idx in range(0, self.__position[1])]
-        for i in range(0, self.__size):
-            [print(" ", end="") for x in range(0, self.__position[0])]
-            [print("#", end="") for y in range(0, self.__size)]
-            print("")
+        else:
+            for z in range(self.__position[1]):
+                print()
+            for z in range(self.__size):
+                print(" " * self.__position[0] + "#" * self.__size)
+        return
 
-     def __str__(self):
+    def __str__(self):
         """Define the print() representation of a Square."""
-        if self.__size != 0:
-            [print("") for i in range(0, self.__position[1])]
-        for i in range(0, self.__size):
-            [print(" ", end="") for j in range(0, self.__position[0])]
-            [print("#", end="") for k in range(0, self.__size)]
-            if i != self.__size - 1:
-                print("")
-        return ("")
+        _str = ""
+        if self.__size == 0:
+            pass
+        else:
+            for x in range(self.__position[1]):
+                _str += "\n"
+            string = "#" * self.__size
+            margin = " " * self.__position[0]
+            _str += margin + string
+            for x in range(1, self.__size):
+                _str += '\n' + margin + string
+        return _str
