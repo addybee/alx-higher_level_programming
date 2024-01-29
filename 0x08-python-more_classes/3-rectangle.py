@@ -97,4 +97,6 @@ class Rectangle:
             return result
         for row in range(self.__height):
             result += ("#" * self.__width)
+            if row != (self.__height - 1):
+                result += "\n"
         return result
