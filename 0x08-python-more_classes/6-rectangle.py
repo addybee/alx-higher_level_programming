@@ -6,6 +6,8 @@
 class Rectangle:
     """class that define rectangle
     """
+    number_of_instances = 0
+    
     def __init__(self, width=0, height=0):
         """initializes the instance attribute
 
@@ -23,6 +25,7 @@ class Rectangle:
             raise ValueError("height must be >= 0")
         self.__width = width
         self.__height = height
+        Rectangle.number_of_instances += 1
 
     @property
     def width(self):
@@ -42,7 +45,7 @@ class Rectangle:
         if value < 0:
             raise ValueError("width must be >= 0")
         self.__width = value
-
+    
     @property
     def height(self):
         """retrieve Private instance attribute: height
@@ -51,8 +54,7 @@ class Rectangle:
 
     @height.setter
     def height(self, value):
-
-        """set the new height of the rectaangle
+        """set the new height
 
         Args:
             value (int): new height of rectangle
@@ -66,7 +68,7 @@ class Rectangle:
         if value < 0:
             raise ValueError("height must be >= 0")
         self.__height = value
-
+    
     def area(self):
         """calculate area of a rectangle
 
@@ -97,10 +99,8 @@ class Rectangle:
             return result
         for row in range(self.__height):
             result += ("#" * self.__width)
-            if row != (self.__height - 1):
-                result += "\n"
         return result
-
+    
     def __repr__(self):
         """string representation
 
@@ -109,3 +109,10 @@ class Rectangle:
             a new instance by using eval()
         """
         return ("Rectangle({:d}, {:d})".format(self.__width, self.__height))
+    
+    def __del__(self):
+        """Print the message Bye rectangle... (... being 3 dots not ellipsis)
+            when an instance of Rectangle is deleted
+        """
+        Rectangle.number_of_instances -= 1
+        print("Bye rectangle...")
