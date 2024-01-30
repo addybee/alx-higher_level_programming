@@ -1,0 +1,38 @@
+The test for `matrix_divided` module
+===================================
+
+Using `matrix_divided`
+-------------------
+>>> say_my_name = __import__("3-say_my_name").say_my_name
+
+CHECK DOCUMENTATION
+>>> module_documentation = __import__("3-say_my_name").__doc__
+>>> print(len(module_documentation) > 0)
+True
+
+>>> function_documentation = __import__("3-say_my_name").say_my_name.__doc__
+>>> print(len(function_documentation) > 0)
+True
+
+USAGE
+>>> say_my_name("Harry", "Kane")
+My name is Harry Kane
+
+>>> say_my_name("Harry")
+My name is Harry 
+
+>>> say_my_name('D', "Kane")
+My name is D Kane
+
+WRONG USAGE
+>>> say_my_name(None, "Kane")
+Traceback (most recent call last):
+TypeError: first_name must be a string
+
+>>> say_my_name(100, "Kane")
+Traceback (most recent call last):
+TypeError: first_name must be a string
+
+>>> say_my_name("Harry", 100.78)
+Traceback (most recent call last):
+TypeError: last_name must be a string

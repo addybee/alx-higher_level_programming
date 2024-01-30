@@ -1,0 +1,60 @@
+The test for `matrix_divided` module
+===================================
+
+Using `matrix_divided`
+-------------------
+>>> print_square = __import__("4-print_square").print_square
+
+CHECK DOCUMENTATION
+>>> module_documentation = __import__("4-print_square").__doc__
+>>> print(len(module_documentation) > 0)
+True
+
+>>> function_documentation = __import__("4-print_square").print_square.__doc__
+>>> print(len(function_documentation) > 0)
+True
+
+USAGE
+>>> print_square(4)
+####
+####
+####
+####
+
+>>> print_square(8)
+########
+########
+########
+########
+########
+########
+########
+########
+
+>>> print_square(0)
+<BLANKLINE>
+
+>>> print_square(1)
+#
+
+WRONG USAGE
+>>> print_square("4")
+Traceback (most recent call last):
+TypeError: size must be an integer
+
+>>> print_square(5.78)
+Traceback (most recent call last):
+TypeError: size must be an integer
+
+>>> print_square(-5)
+Traceback (most recent call last):
+ValueError: size must be >= 0
+
+>>> print_square(-4.33)
+Traceback (most recent call last):
+TypeError: size must be an integer
+
+>>> print_square([3, -4.33])
+Traceback (most recent call last):
+TypeError: size must be an integer
+
