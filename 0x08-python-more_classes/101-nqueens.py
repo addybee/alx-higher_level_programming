@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from sys import argv
 
+
 def solve_queen_problem():
     if len(argv) != 2:
         print("Usage: nqueens N")
@@ -14,8 +15,9 @@ def solve_queen_problem():
 
     size = int(argv[1])
     chess_board = [["$" for j in range(size)] for k in range(size)]
-    print ( chess_board )
+    print(chess_board)
     print("{:d}".format(int(argv[1])))
+
 
 if __name__ == "__main__":
     solve_queen_problem()
