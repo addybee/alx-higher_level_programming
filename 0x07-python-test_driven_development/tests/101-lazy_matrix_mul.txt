@@ -8,13 +8,14 @@ Using `lazy_lazy_matrix_mul`
 
 USAGE
 
->>> lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4]])
-[[7, 10], [15, 22]]
+>>> lazy_matrix_mul([[1, 2], [3, 4]], [[1, 2], [3, 4]]) # doctest: +NORMALIZE_WHITESPACE
+array([[ 7, 10],
+           [15, 22]])
 
 >>> amat = [[1, 2]]
 >>> bmat =  [[3, 4], [5, 6]]
->>> lazy_matrix_mul(amat, bmat)
-[[13, 16]]
+>>> lazy_matrix_mul(amat, bmat) # doctest: +NORMALIZE_WHITESPACE
+array([[13, 16]])
 
 WRONG USAGE
 
