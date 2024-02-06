@@ -9,6 +9,6 @@ def write_file(filename="", text=""):
 
     if type(filename) is not str or type(text) is not str:
         raise TypeError("filename and text must be string")
-    with open(filename, "w", "UTF8") as myFile:
+    with open(filename, mode="w", encoding="utf-8") as myFile:
         result = myFile.write(text)
         return result

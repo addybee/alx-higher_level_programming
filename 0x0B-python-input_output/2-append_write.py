@@ -7,6 +7,6 @@ def append_write(filename="", text=""):
 
     if type(filename) is not str or type(text) is not str:
         raise TypeError("filename and text must be string")
-    with open(filename, "a", "UTF8") as myFile:
+    with open(filename, mode="a", encoding="utf-8") as myFile:
         result = myFile.write(text)
         return result
