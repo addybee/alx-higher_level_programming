@@ -19,4 +19,3 @@ for i in arguments:
     file_data.append(i)
 
 save_to_json_file(file_data, "add_item.json")
-
