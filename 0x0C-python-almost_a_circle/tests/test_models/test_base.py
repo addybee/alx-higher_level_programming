@@ -16,20 +16,25 @@ class TestBase(unittest.TestCase):
         cls.b2 = Base()
         cls.b3 = Base(22)
         cls.b4 = Base()
+        cls.idx = 0
 
     @classmethod
-    def tearDownClass(self):
+    def tearDownClass(cls):
         """ deletete attribute (attr) of TestBase """
-        del self.b1
-        del self.b2
-        del self.b3
-        del self.b4
+        del cls.b1
+        del cls.b2
+        del cls.b3
+        del cls.b4
+        cls.idx = 0
 
     def test_Base_id_equal(self):
-        self.assertEqual(self.b1.id, 1)
-        self.assertEqual(self.b2.id, 2)
+        self.idx += 1
+        self.assertEqual(self.b1.id, self.idx)
+        self.idx += 1
+        self.assertEqual(self.b2.id, self.idx)
         self.assertEqual(self.b3.id, 22)
-        self.assertEqual(self.b4.id, 3)
+        self.idx += 1
+        self.assertEqual(self.b4.id, self.idx)
 
     def test_object(self):
         self.assertTrue(isinstance(self.b1, Base))

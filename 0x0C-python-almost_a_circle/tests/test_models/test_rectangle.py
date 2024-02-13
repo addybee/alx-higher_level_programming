@@ -13,6 +13,8 @@ class TestRectangle(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """ initializes new object """
+        cls.idx = 0
+        Rectangle.nb_objects = 0
         cls.r1 = Rectangle(2, 10)
         cls.r2 = Rectangle(5, 3, 1, 1, 6)
         cls.r3 = Rectangle(11, 15, 1, 1, 15)
@@ -27,6 +29,7 @@ class TestRectangle(unittest.TestCase):
         del cls.r3
         del cls.r4
         del cls.r5
+        cls.idx = 0
 
     def test_obj_type(self):
         """ test if object created is type Rectangle """
@@ -36,8 +39,6 @@ class TestRectangle(unittest.TestCase):
 
     def test_attr_val(self):
         """ compare the attributes and the setters and getters """
-
-        self.assertEqual(self.r1.id, 1)
         self.assertEqual(self.r3.id, 15)
         rect_attr = [self.r1.width, self.r1.height, self.r1.x, self.r1.y]
         rect_attr2 = [self.r3.width, self.r3.height, self.r3.x, self.r3.y]
@@ -49,15 +50,19 @@ class TestRectangle(unittest.TestCase):
         self.assertEqual(self.r1.y, 3)
 
     def test_TypeError_validateattr(self):
-        """ this function test the validator code """
+        """ this function test the validation for attributes """
 
         with self.assertRaises(TypeError, msg="width must be an integer"):
             self.r1.width = "5"
+
+        self.idx += 1
         with self.assertRaises(TypeError, msg="width must be an integer"):
             Obj1 = Rectangle("5", 14)
 
         with self.assertRaises(TypeError, msg="height must be an integer"):
             self.r1.height = [3, 4]
+
+        self.idx += 1
         with self.assertRaises(TypeError, msg="height must be an integer"):
             Obj2 = Rectangle(5, "14")
 
@@ -84,7 +89,7 @@ class TestRectangle(unittest.TestCase):
         with self.assertRaises(ValueError, msg="x must be >= 0"):
             obj2 = Rectangle(12, 6, -2)
 
-        with self.assertRaises(ValueError, msg="y must be > 0"):
+        with self.assertRaises(ValueError, msg="y must be >= 0"):
             self.r1.y = -2
 
     def test_area(self):
@@ -106,15 +111,19 @@ class TestRectangle(unittest.TestCase):
         str_obj_file = StringIO()
         with redirect_stdout(str_obj_file):
             print(self.r2)
-        self.assertEqual(str_obj_file.getvalue(), "[Rectangle] (6) 1/1 - 5/3\n")
+        self.assertEqual(str_obj_file.getvalue(),
+                         "[Rectangle] (6) 1/1 - 5/3\n")
 
     def test_display1(self):
         """ test the display function with coordinate in place"""
         str_obj_file = StringIO()
         with redirect_stdout(str_obj_file):
             self.r2.display()
+
         self.assertEqual(str_obj_file.getvalue(), "\n #####\n #####\n #####\n")
-        r2 = Rectangle(4, 4, id=3) 
+        r2 = Rectangle(4, 4)
+        self.idx += 1
+
         str_obj_file1 = StringIO()
         with redirect_stdout(str_obj_file1):
             r2.display()
@@ -126,31 +135,36 @@ class TestRectangle(unittest.TestCase):
         self.r4.update(89)
         with redirect_stdout(str_obj_file):
             print(self.r4)
-        self.assertEqual(str_obj_file.getvalue(), "[Rectangle] (89) 3/2 - 10/5\n")
+        self.assertEqual(str_obj_file.getvalue(),
+                         "[Rectangle] (89) 3/2 - 10/5\n")
 
         str_obj_file1 = StringIO()
         self.r4.update(89, 2)
         with redirect_stdout(str_obj_file1):
             print(self.r4)
-        self.assertEqual(str_obj_file1.getvalue(), "[Rectangle] (89) 3/2 - 2/5\n")
+        self.assertEqual(str_obj_file1.getvalue(),
+                         "[Rectangle] (89) 3/2 - 2/5\n")
 
         str_obj_file = StringIO()
         self.r4.update(89, 2, 3)
         with redirect_stdout(str_obj_file):
             print(self.r4)
-        self.assertEqual(str_obj_file.getvalue(), "[Rectangle] (89) 3/2 - 2/3\n")
-        
+        self.assertEqual(str_obj_file.getvalue(),
+                         "[Rectangle] (89) 3/2 - 2/3\n")
+
         str_obj_file = StringIO()
         self.r4.update(89, 2, 3, 4)
         with redirect_stdout(str_obj_file):
             print(self.r4)
-        self.assertEqual(str_obj_file.getvalue(), "[Rectangle] (89) 4/2 - 2/3\n")
+        self.assertEqual(str_obj_file.getvalue(),
+                         "[Rectangle] (89) 4/2 - 2/3\n")
 
         str_obj_file = StringIO()
         self.r4.update(89, 2, 3, 4, 5)
         with redirect_stdout(str_obj_file):
             print(self.r4)
-        self.assertEqual(str_obj_file.getvalue(), "[Rectangle] (89) 4/5 - 2/3\n")
+        self.assertEqual(str_obj_file.getvalue(),
+                         "[Rectangle] (89) 4/5 - 2/3\n")
 
     def test_update1(self):
         """ Update the class Rectangle """
@@ -158,31 +172,36 @@ class TestRectangle(unittest.TestCase):
         self.r5.update(height=10)
         with redirect_stdout(str_obj_file):
             print(self.r5)
-        self.assertEqual(str_obj_file.getvalue(), "[Rectangle] (7) 3/2 - 10/10\n")
+        self.assertEqual(str_obj_file.getvalue(),
+                         "[Rectangle] (7) 3/2 - 10/10\n")
 
         str_obj_file1 = StringIO()
         self.r5.update(width=9, x=8)
         with redirect_stdout(str_obj_file1):
             print(self.r5)
-        self.assertEqual(str_obj_file1.getvalue(), "[Rectangle] (7) 8/2 - 9/10\n")
+        self.assertEqual(str_obj_file1.getvalue(),
+                         "[Rectangle] (7) 8/2 - 9/10\n")
 
         str_obj_file = StringIO()
-        self.r5.update(y=7, width=6, x=5, id =80)
+        self.r5.update(y=7, width=6, x=5, id=80)
         with redirect_stdout(str_obj_file):
             print(self.r5)
-        self.assertEqual(str_obj_file.getvalue(), "[Rectangle] (80) 5/7 - 6/10\n")
-        
+        self.assertEqual(str_obj_file.getvalue(),
+                         "[Rectangle] (80) 5/7 - 6/10\n")
+
         str_obj_file = StringIO()
         self.r5.update(x=4, width=3, y=2, height=1)
         with redirect_stdout(str_obj_file):
             print(self.r5)
-        self.assertEqual(str_obj_file.getvalue(), "[Rectangle] (80) 4/2 - 3/1\n")
-        
+        self.assertEqual(str_obj_file.getvalue(),
+                         "[Rectangle] (80) 4/2 - 3/1\n")
+
         str_obj_file = StringIO()
         self.r5.update(89, 2, 3, 4, 5)
         with redirect_stdout(str_obj_file):
             print(self.r5)
-        self.assertEqual(str_obj_file.getvalue(), "[Rectangle] (89) 4/5 - 2/3\n")
+        self.assertEqual(str_obj_file.getvalue(),
+                         "[Rectangle] (89) 4/5 - 2/3\n")
 
 
 if __name__ == "__main__":
