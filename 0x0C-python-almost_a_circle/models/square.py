@@ -41,3 +41,8 @@ class Square(Rectangle):
                 if key in kwargs:
                     Square.validate(key, value)
                     setattr(self, key, value)
+
+    def to_dictionary(self):
+        """ returns the dictionary description Square """
+        result = {"id": self.id, "size": self.size, "x": self.x, "y": self.y}
+        return result

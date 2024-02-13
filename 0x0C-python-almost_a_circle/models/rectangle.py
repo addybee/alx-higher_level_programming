@@ -112,3 +112,10 @@ class Rectangle(Base):
                 if key in kwargs:
                     Rectangle.validate(key, value)
                     setattr(self, key, value)
+
+    def to_dictionary(self):
+        """ returns the dictionary description rectangle """
+
+        result = {"id": self.id, "width": self.width, "height": self.height,
+                  "x": self.x, "y": self.y}
+        return result
