@@ -37,7 +37,7 @@ class Base:
         if json_string is None or len(json_string) == 0:
             return []
         return json.loads(json_string)
-    
+
     @classmethod
     def save_to_file(cls, list_objs):
         file_n = "{}.json".format(cls.__name__)
@@ -74,9 +74,8 @@ class Base:
         if dictionary is None:
             return None
         if cls.__name__ == "Rectangle":
-            new_obj = cls(1,3)
+            new_obj = cls(1, 3)
         if cls.__name__ == "Square":
             new_obj = cls(2)
         new_obj.update(**dictionary)
         return new_obj
-
