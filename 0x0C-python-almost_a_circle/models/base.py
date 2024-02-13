@@ -4,7 +4,7 @@
 """
 
 
-from json import loads
+import json
 
 
 class Base:
@@ -22,11 +22,18 @@ class Base:
             self.id = Base.__nb_objects
 
     @staticmethod
+    def to_json_string(my_obj):
+        """ returns the JSON representation of a list of dictionaries """
+        if list_dictionaries is None or len(list_dictionaries) == 0:
+            return []
+        return json.dumps(my_obj)
+
+    @staticmethod
     def from_json_string(json_string):
         """ returns the list of the JSON string representation json_string """
         if json_string is None or len(json_string) == 0:
             return []
-        return loads(json_string)
+        return json.loads(json_string)
 
     @classmethod
     def create(cls, **dictionary):
@@ -43,6 +50,20 @@ class Base:
             new_obj = Square(1, 0, 0, 0)
             new_obj.update(**dictionary)
             return new_obj
+
+    @classmethod
+    def save_to_file(cls, list_objs):
+        file_n = "{}.json".format(cls.__name__)
+        if list_objs is None:
+            with open(file_n, "w", encoding="utf-8") as f:
+                json.dump([], f)
+                return
+
+        objs_str = cls.to_json_string(
+            [obj.to_dictionary() for obj in list_objs],
+        )
+        with open(file_n, "w", encoding="utf-8") as f:
+            f.write(objs_str)
 
     @classmethod
     def load_from_file(cls):
