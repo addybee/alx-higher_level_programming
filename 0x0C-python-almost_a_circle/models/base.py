@@ -37,23 +37,7 @@ class Base:
         if json_string is None or len(json_string) == 0:
             return []
         return json.loads(json_string)
-
-    @classmethod
-    def create(cls, **dictionary):
-        """ returns an instance with all attributes already set """
-        new_obj = None
-
-        if dictionary is None:
-            return None
-        if cls.__name__ == "Rectangle":
-            new_obj = Rectangle(1, 1, 0, 0, 0)
-            new_obj.update(**dictionary)
-            return new_obj
-        elif cls__name__ == "Square":
-            new_obj = Square(1, 0, 0, 0)
-            new_obj.update(**dictionary)
-            return new_obj
-
+    
     @classmethod
     def save_to_file(cls, list_objs):
         file_n = "{}.json".format(cls.__name__)
@@ -81,3 +65,18 @@ class Base:
         except FileNotFoundError:
             pass
         return obj_list
+
+    @classmethod
+    def create(cls, **dictionary):
+        """ returns an instance with all attributes already set """
+        new_obj = None
+
+        if dictionary is None:
+            return None
+        if cls.__name__ == "Rectangle":
+            new_obj = cls(1,3)
+        if cls__name__ == "Square":
+            new_obj = cls(2)
+        new_obj.update(**dictionary)
+        return new_obj
+
