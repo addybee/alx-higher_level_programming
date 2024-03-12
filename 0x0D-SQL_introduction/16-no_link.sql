@@ -5,4 +5,4 @@
 -- The database name will be passed as an argument to the mysql command
 
 SELECT name, score FROM second_table
-WHERE name IS NOT NULL;
+WHERE NOT name = "";
