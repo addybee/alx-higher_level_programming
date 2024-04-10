@@ -24,7 +24,6 @@ if (file1 && file2 && file3) {
       fs.writeFile(file3, result, (err) => {
         if (err) {
           console.error(`Error writing to ${file3}: ${err.message}`);
-          return;
         }
       });
     });
