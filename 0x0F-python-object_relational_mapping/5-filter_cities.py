@@ -14,12 +14,9 @@ if __name__ == "__main__":
         db = MySQLdb.connect(user=argv[1], password=argv[2], database=argv[3],
                              port=3306, host="localhost")
         cur = db.cursor()
-        query = """SELECT cities.name
-                FROM cities
-                INNER JOIN states
-                ON cities.state_id = states.id
-                WHERE states.name = %s
-                ORDER BY cities.id"""
+        query = """SELECT name FROM cities
+                WHERE state_id = (SELECT id FROM states WHERE name = %s)
+                ORDER BY id"""
         size = cur.execute(query, (argv[4],))
         rows = cur.fetchall()
         for row in rows:
