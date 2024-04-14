@@ -4,15 +4,14 @@
 """
 
 
+from sys import argv
+import MySQLdb
+
 if __name__ == "__main__":
-
-    from sys import argv
-    import MySQLdb
-
     db = MySQLdb.connect(user=argv[1], password=argv[2], database=argv[3],
                          port=3306, host="localhost")
     cur = db.cursor()
-    query = "SELECT * FROM states WHERE name = '{}' ORDER BY id".format(argv[4])
+    query = "SELECT * FROM states WHERE name='{}' ORDER BY id".format(argv[4])
     cur.execute(query)
     rows = cur.fetchall()
     for row in rows:
