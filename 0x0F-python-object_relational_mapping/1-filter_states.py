@@ -8,12 +8,15 @@ if __name__ == "__main__":
 
     from sys import argv
     import MySQLdb
+    try:
 
-    db = MySQLdb.connect(user=argv[1], password=argv[2], database=argv[3],
-                         port=3306, host="localhost")
-    query = "SELECT id, name FROM states WHERE name LIKE 'N%' ORDER BY id"
-    db.query(query)
-    rows = db.store_result().fetch_row(maxrows=0)
-    for row in rows:
-        print(row)
-    db.close()
+        db = MySQLdb.connect(user=argv[1], password=argv[2], database=argv[3],
+                             port=3306, host="localhost")
+        query = "SELECT id, name FROM states WHERE name LIKE 'N%' ORDER BY id"
+        db.query(query)
+        rows = db.store_result().fetch_row(maxrows=0)
+        db.close()
+        for row in rows:
+            print(row)
+    except MySQLdb.Error:
+        pass

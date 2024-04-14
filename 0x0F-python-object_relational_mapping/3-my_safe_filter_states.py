@@ -8,17 +8,22 @@ from sys import argv
 import MySQLdb
 
 if __name__ == "__main__":
+    db = None
+    cur = None
     try:
 
         db = MySQLdb.connect(user=argv[1], password=argv[2], database=argv[3],
                              port=3306, host="localhost")
         cur = db.cursor()
-        query = "SELECT * FROM states WHERE name = '{}'".format(argv[4])
-        cur.execute(query)
+        query = "SELECT * FROM states WHERE name=%s ORDER BY id"
+        cur.execute(query, (argv[4],))
         rows = cur.fetchall()
-        cur.close()
-        db.close()
         for row in rows:
             print(row)
     except MySQLdb.Error:
         pass
+    finally:
+        if cur:
+            cur.close()
+        if db:
+            db.close()
