@@ -11,11 +11,9 @@ if __name__ == "__main__":
 
     db = MySQLdb.connect(user=argv[1], password=argv[2], database=argv[3],
                          port=3306, host="localhost")
-    cur = db.cursor()
     query = "SELECT id, name FROM states WHERE name LIKE 'N%' ORDER BY id"
-    cur.execute(query)
-    rows = cur.fetchall()
+    db.query(query)
+    rows = db.store_result().fetch_row(maxrows=0)
     for row in rows:
         print(row)
-    cur.close()
     db.close()
