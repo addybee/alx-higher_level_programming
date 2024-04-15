@@ -1,7 +1,5 @@
 #!/usr/bin/python3
-""" lists all State objects that contain the letter a from
-    the database hbtn_0e_6_usa
-"""
+
 
 from model_state import Base, State
 from sys import argv
@@ -11,7 +9,7 @@ from sqlalchemy.orm import sessionmaker
 
 if __name__ == "__main__":
     try:
-        engine = create_engine('mysql+mysqldb://{}:{}@localhost:3306/{}'.
+        engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'.
                                format(argv[1],
                                       argv[2],
                                       argv[3]),
@@ -20,10 +18,14 @@ if __name__ == "__main__":
         Base.metadata.create_all(engine)
         Session = sessionmaker(bind=engine)
         session = Session()
-        query = session.query(State).filter(State.name.like('%a%')).\
+        query = session.query(State).\
+            filter(State.name == argv[4]).\
             order_by(State.id)
-        for obj_row in query.all():
-            print("{}: {}".format(obj_row.id, obj_row.name))
+        result = query.one_or_none()
+        if result:
+            print(result.id)
+        else:
+            print("Not found")
         session.close()
         engine.dispose()
     except SQLAlchemyError as e:
