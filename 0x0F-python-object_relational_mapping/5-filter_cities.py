@@ -19,11 +19,12 @@ if __name__ == "__main__":
         cur.execute(query, (argv[4],))
         rows = cur.fetchall()
         size = len(rows)
-        for row in rows:
-            if row == rows[size - 1]:
-                print(row[0])
+        for idx in range(size):
+            if rows[idx] == rows[size - 1]:
+                print(rows[idx][0], end="")
             else:
-                print(row[0], end=', ')
+                print(rows[idx][0], end=', ')
+        print()
         cur.close()
         db.close()
     except MySQLdb.Error as e:
