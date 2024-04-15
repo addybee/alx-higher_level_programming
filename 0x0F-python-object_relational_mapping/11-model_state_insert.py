@@ -25,7 +25,7 @@ if __name__ == "__main__":
         query = session.query(State).filter_by(name="Louisiana").scalar()
 
         if query:
-            print(query.id, query.name)
+            print(query.id)
         session.close()
         engine.dispose()
     except SQLAlchemyError as e:
