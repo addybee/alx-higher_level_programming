@@ -9,7 +9,6 @@ from sqlalchemy.orm import sessionmaker
 
 if __name__ == "__main__":
     try:
-
         engine = create_engine('mysql+mysqldb://{}:{}@localhost/{}'.
                                format(argv[1],
                                       argv[2],
@@ -19,7 +18,7 @@ if __name__ == "__main__":
         Base.metadata.create_all(engine)
         Session = sessionmaker(bind=engine)
         session = Session()
-        query = session.query(State).order_by(State.id)
+        query = session.query(State).filter(State.name.like('%a%')).order_by(State.id)
         for obj_row in query.all():
             print("{}: {}".format(obj_row.id, obj_row.name))
         session.close()
