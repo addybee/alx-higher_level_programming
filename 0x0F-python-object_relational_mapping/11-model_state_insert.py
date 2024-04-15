@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-""" prints the State object with the name passed as argument
-    from the database hbtn_0e_6_usa
+""" adds the State object “Louisiana” to the database hbtn_0e_6_usa
 """
 
 from model_state import Base, State
@@ -20,13 +19,13 @@ if __name__ == "__main__":
         Base.metadata.create_all(engine)
         Session = sessionmaker(bind=engine)
         session = Session()
-        louisiana_state = State("Louisiana")
+        louisiana_state = State(name="Louisiana")
         session.add(louisiana_state)
-        query = session.query(State.id).filter_by(name="Louisiana").first()
+        session.commit()
+        query = session.query(State).filter_by(name="Louisiana").scalar()
 
-        result = query.one_or_none()
-        if result:
-            print(result.id)
+        if query:
+            print(query.id, query.name)
         session.close()
         engine.dispose()
     except SQLAlchemyError as e:
