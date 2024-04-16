@@ -6,8 +6,10 @@ Base = declarative_base()
 
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship
-from relationship_city import Base
+from sqlalchemy.ext.declarative import declarative_base
 
+
+Base = declarative_base()
 
 class State(Base):
     """this class defines a state for ORM
@@ -18,4 +20,4 @@ class State(Base):
     __tablename__ = 'states'
     id = Column(Integer, primary_key=True)
     name = Column(String(128), nullable=False)
-    cities = relationship("City", cascade="all, delete", back_populates="states")
+    cities = relationship("City", cascade="all, delete", backref="state")

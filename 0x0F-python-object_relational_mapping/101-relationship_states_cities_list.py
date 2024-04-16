@@ -4,8 +4,8 @@ creates the State “California” with the City “San Francisco”
 from the database hbtn_0e_100_usa
 """
 
-from relationship_state import Base, State
-from relationship_city import City
+from relationship_state import State
+from relationship_city import Base, City
 from sys import argv
 from sqlalchemy import create_engine
 from sqlalchemy.exc import SQLAlchemyError
@@ -22,10 +22,15 @@ if __name__ == "__main__":
         Base.metadata.create_all(engine)
         session = sessionmaker(bind=engine)()
 
-        cali_state = State(name="California",
-                           cities=[City(name="San Francisco")])
-        session.add(cali_state)
-        session.commit()
+        query = session.query(State).\
+            filter(State.id == City.state_id).\
+            order_by(State.id, City.id)
+            
+        for obj in query.all():
+            print("{}: {}".format(obj.id, obj.name))
+            for city in obj.cities:
+                print("    {}: {}".format(city.id, city.name))
+       
         session.close()
         engine.dispose()
     except SQLAlchemyError as e:
