@@ -25,12 +25,12 @@ if __name__ == "__main__":
         query = session.query(State).\
             filter(State.id == City.state_id).\
             order_by(State.id, City.id)
-            
+
         for obj in query.all():
             print("{}: {}".format(obj.id, obj.name))
             for city in obj.cities:
                 print("    {}: {}".format(city.id, city.name))
-       
+
         session.close()
         engine.dispose()
     except SQLAlchemyError as e:
