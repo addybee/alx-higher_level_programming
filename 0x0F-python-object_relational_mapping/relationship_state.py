@@ -21,6 +21,6 @@ class State(Base):
     cities = relationship("City", back_populates="states")
 
 
-City.states = relationship("State", back_populates="cities")
+City.state = relationship("State", back_populates="cities")
 mapper_registry = registry()
 mapper_registry.configure()
