@@ -5,8 +5,8 @@ Base = declarative_base()
 """
 
 from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import relationship, registry
-from relationship_city import City, Base
+from sqlalchemy.orm import relationship
+from relationship_city import Base
 
 
 class State(Base):
@@ -18,9 +18,4 @@ class State(Base):
     __tablename__ = 'states'
     id = Column(Integer, primary_key=True)
     name = Column(String(128), nullable=False)
-    cities = relationship("City", back_populates="states")
-
-
-City.state = relationship("State", back_populates="cities")
-mapper_registry = registry()
-mapper_registry.configure()
+    cities = relationship("City", cascade="all, delete", back_populates="states")
