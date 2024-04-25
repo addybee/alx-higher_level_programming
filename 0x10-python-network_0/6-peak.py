@@ -16,5 +16,9 @@ def find_peak(list_of_integers):
         return None
     if size == 1:
         return list_of_integers[0]
-    sorted_list = sorted(list_of_integers)
-    return sorted_list[size - 1]
+    n = (size + 1) // 2
+    left = find_peak(list_of_integers[0:n])
+    right = find_peak(list_of_integers[n:size])
+    if left > right:
+        return left
+    return right
