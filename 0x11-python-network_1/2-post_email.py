@@ -8,16 +8,17 @@ from urllib import request, error, parse
 from sys import argv
 
 
-url, email = argv[1:]
+if __name__ == "__main__":
+    url, email = argv[1:]
 
-val = {'email': email}
-header = {'Content-Type': 'application/x-www-form-urlencoded'}
-data = parse.urlencode(val)
-data = data.encode('ascii')
-req = request.Request(url, data, header)
-try:
-    with request.urlopen(req) as response:
-        content = response.read().decode('utf-8')
-        print(content)
-except error.URLError as e:
-    pass
+    val = {'email': email}
+    header = {'Content-Type': 'application/x-www-form-urlencoded'}
+    data = parse.urlencode(val)
+    data = data.encode('ascii')
+    req = request.Request(url, data, header)
+    try:
+        with request.urlopen(req) as response:
+            content = response.read().decode('utf-8')
+            print(content)
+    except error.URLError as e:
+        pass

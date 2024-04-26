@@ -6,12 +6,14 @@
 from urllib import request, error
 from sys import argv
 
-url, = argv[1:]
 
-req = request.Request(url)
-try:
-    with request.urlopen(req) as response:
-        X_Request_Id = response.headers.get('X-Request-Id')
-        print(X_Request_Id)
-except error.URLError as e:
-    pass
+if __name__ == "__main__":
+    url, = argv[1:]
+
+    req = request.Request(url)
+    try:
+        with request.urlopen(req) as response:
+            X_Request_Id = response.headers.get('X-Request-Id')
+            print(X_Request_Id)
+    except error.URLError as e:
+        pass
