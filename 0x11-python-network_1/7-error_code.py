@@ -17,4 +17,3 @@ if __name__ == "__main__":
         status_code = response.status_code
         if status_code:
             print("Error code:", status_code)
-        

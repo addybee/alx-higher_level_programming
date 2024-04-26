@@ -12,7 +12,7 @@ if __name__ == "__main__":
             content = response.read()
             content_type = type(content)
             content_utf8 = content.decode('utf-8')
-            print("Body response:\n    - type: {}\n    - content: {}\n    - utf8 \
-    content: {}".format(content_type, content, content_utf8))
+            print("Body response:\n    - type: {}\n    - content: {}\n    \
+- utf8 content: {}".format(content_type, content, content_utf8))
     except error.URLError as e:
         pass
