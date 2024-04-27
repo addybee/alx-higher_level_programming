@@ -15,13 +15,14 @@ if __name__ == "__main__":
         url = "http://0.0.0.0:5000/search_user"
         response = requests.post(url, data={'q': p})
         response.raise_for_status()
-        content = response.json()
-        if len(content) < 1:
-            print("No result")
+        if response.headers.get("Content-Type") == "application/json":
+            content = response.json()
+            if len(content) < 1:
+                print("No result")
+            else:
+                print("[{}] {}".format(content.get("id"), content.get("name")))
         else:
-            print("[{}] {}".format(content.get("id"), content.get("name")))
-    except requests.JSONDecodeError as e:
-        print("Not a valid JSON")
+            print("Not a valid JSON")
     except requests.exceptions.RequestException as e:
         status_code = response.status_code
         if status_code:
