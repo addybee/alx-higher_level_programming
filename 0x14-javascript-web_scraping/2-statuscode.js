@@ -5,4 +5,6 @@ const request = require('request');
 
 request
   .get(api)
-  .on('response', (response) => { console.log('code: ', response.statusCode); });
+  .on('response', (response) => {
+    console.log(`code: ${response.statusCode}`);
+  });
