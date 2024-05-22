@@ -2,16 +2,11 @@
 
 const api = process.argv[2];
 const request = require('request');
-const wedgeAntilles = 'https://swapi-api.alx-tools.com/api/people/18/';
+const ID = 18;
+const wedgeAntilles = `https://swapi-api.alx-tools.com/api/people/${ID}/`;
 
 request.get(api, (error, response) => {
   if (error) throw error;
   const results = JSON.parse(response.body).results;
-  let count = 0;
-  for (let index = 0; index < results.length; index++) {
-    for (let idx = 0; idx < results[index].characters.length; idx++) {
-      if (results[index].characters[idx] === wedgeAntilles) count++;
-    }
-  }
-  console.log(count);
+  console.log(results.reduce((acc, result) => acc + result.characters.filter(character => character === wedgeAntilles).length, 0));
 });
